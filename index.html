@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI-POWERED PROMPT GENERATOR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Hello, I am GenPai</h2>
+        <h3>Your next gen Prompt generator!</h3>
+        <form id="prompt-form" autocomplete="off">
+            <label for="context">Context:</label>
+            <textarea id="context" placeholder="Describe the background/context"></textarea>
+
+            <label for="instructions">Instructions:</label>
+            <textarea id="instructions" placeholder="What should AI do?"></textarea>
+
+            <label for="examples">Examples:</label>
+            <textarea id="examples" placeholder="Provide example if any"></textarea>
+
+            <label for="output">Expected Output:</label>
+            <textarea id="output" placeholder="Describe the desired output"></textarea>
+
+            <button type="button" id="generate-btn">Generate Prompt</button>
+        </form>
+
+        <div id="final-prompt-section">
+            <h4>Final-prompt:</h4>
+            <pre id="final-prompt"></pre>
+        </div>
+
+        <div id="tips-section">
+            <h5>Prompt Engineering Tips:</h5>
+            <ul>
+                <li>Be clear and specific with instructions.</li>
+                <li>Provide relevant context to the AI.</li>
+                <li>Add examples for better accuracy.</li>
+                <li>State your expected output.</li>
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
