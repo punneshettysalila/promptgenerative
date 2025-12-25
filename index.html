@@ -2,44 +2,158 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-POWERED PROMPT GENERATOR</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h2>Hello, I am GenPai</h2>
-        <h3>Your next gen Prompt generator!</h3>
+        <div class="header">
+            <h2>Hello, I am GenPai 🤖</h2>
+            <h3>Your next gen Prompt generator!</h3>
+            <div class="stats">
+                <span id="char-count">Characters: 0</span>
+                <span id="word-count">Words: 0</span>
+            </div>
+        </div>
+
+        <!-- Template Selection -->
+        <div class="template-section">
+            <label for="template-select">🎯 Quick Start Templates:</label>
+            <select id="template-select">
+                <option value="">Choose a template...</option>
+                <option value="creative">Creative Writing</option>
+                <option value="code">Code Generation</option>
+                <option value="analysis">Data Analysis</option>
+                <option value="email">Email Writing</option>
+                <option value="marketing">Marketing Copy</option>
+                <option value="tutorial">Tutorial Creation</option>
+                <option value="brainstorm">Brainstorming</option>
+                <option value="summarize">Text Summarization</option>
+            </select>
+        </div>
+
         <form id="prompt-form" autocomplete="off">
-            <label for="context">Context:</label>
-            <textarea id="context" placeholder="Describe the background/context"></textarea>
+            <!-- Tone Selector -->
+            <div class="tone-section">
+                <label>🎭 Tone & Style:</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="tone" value="professional"> Professional
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="tone" value="casual"> Casual
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="tone" value="humorous"> Humorous
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="tone" value="formal"> Formal
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="tone" value="creative"> Creative
+                    </label>
+                </div>
+            </div>
 
-            <label for="instructions">Instructions:</label>
-            <textarea id="instructions" placeholder="What should AI do?"></textarea>
+            <label for="context">📋 Context:</label>
+            <textarea id="context" placeholder="Describe the background/context" rows="3"></textarea>
 
-            <label for="examples">Examples:</label>
-            <textarea id="examples" placeholder="Provide example if any"></textarea>
+            <label for="instructions">⚡ Instructions:</label>
+            <textarea id="instructions" placeholder="What should AI do?" rows="3"></textarea>
 
-            <label for="output">Expected Output:</label>
-            <textarea id="output" placeholder="Describe the desired output"></textarea>
+            <label for="examples">💡 Examples:</label>
+            <textarea id="examples" placeholder="Provide example if any" rows="3"></textarea>
 
-            <button type="button" id="generate-btn">Generate Prompt</button>
+            <label for="output">🎯 Expected Output:</label>
+            <textarea id="output" placeholder="Describe the desired output" rows="3"></textarea>
+
+            <!-- Constraints Section -->
+            <div class="constraints-section">
+                <label for="constraints">⚙️ Constraints (Optional):</label>
+                <textarea id="constraints" placeholder="e.g., Max 200 words, Use bullet points, No jargon" rows="2"></textarea>
+            </div>
+
+            <!-- Format Options -->
+            <div class="format-section">
+                <label>📝 Output Format:</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="format" value="structured"> Structured
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="format" value="bullet-points"> Bullet Points
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="format" value="step-by-step"> Step-by-Step
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="format" value="json"> JSON
+                    </label>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" id="generate-btn">✨ Generate Prompt</button>
+                <button type="button" id="enhance-btn">🚀 AI Enhance</button>
+                <button type="button" id="clear-btn">🗑️ Clear All</button>
+            </div>
         </form>
 
-        <div id="final-prompt-section">
-            <h4>Final-prompt:</h4>
+        <div id="final-prompt-section" style="display: none;">
+            <div class="prompt-header">
+                <h4>Final Prompt:</h4>
+                <div class="action-buttons">
+                    <button id="copy-btn" class="small-btn">📋 Copy</button>
+                    <button id="save-btn" class="small-btn">💾 Save</button>
+                    <button id="share-btn" class="small-btn">🔗 Share</button>
+                    <button id="export-btn" class="small-btn">📥 Export</button>
+                </div>
+            </div>
             <pre id="final-prompt"></pre>
+            <div class="quality-meter">
+                <label>Prompt Quality Score:</label>
+                <div class="meter-bar">
+                    <div id="quality-fill" class="meter-fill"></div>
+                </div>
+                <span id="quality-score">0%</span>
+            </div>
+        </div>
+
+        <!-- Saved Prompts History -->
+        <div id="history-section">
+            <h4>📚 Saved Prompts:</h4>
+            <div id="history-list"></div>
         </div>
 
         <div id="tips-section">
-            <h5>Prompt Engineering Tips:</h5>
-            <ul>
+            <h5>💎 Prompt Engineering Tips:</h5>
+            <ul id="tips-list">
                 <li>Be clear and specific with instructions.</li>
                 <li>Provide relevant context to the AI.</li>
                 <li>Add examples for better accuracy.</li>
                 <li>State your expected output.</li>
+                <li>Use constraints to refine the response.</li>
+                <li>Experiment with different tones and formats.</li>
             </ul>
+            <button id="random-tip-btn" class="small-btn">🎲 Random Tip</button>
         </div>
+
+        <!-- AI Assistant Chat -->
+        <div id="ai-assistant" style="display: none;">
+            <div class="assistant-header">
+                <h4>🤖 GenPai Assistant</h4>
+                <button id="close-assistant" class="small-btn">✕</button>
+            </div>
+            <div id="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" id="user-message" placeholder="Ask me anything about prompt engineering...">
+                <button id="send-message-btn">Send</button>
+            </div>
+        </div>
+        <button id="open-assistant-btn" class="floating-btn">💬</button>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
